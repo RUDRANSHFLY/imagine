@@ -30,7 +30,7 @@ const Item = ({id,imageUrl,name} : ItemProps) => {
 
   return (
     <div className={'aspect-square relative'}>
-      <Hint label={name}> 
+      <Hint label={name} side={"right"} align={"center"} sideOffset={18}> 
           <Image src={imageUrl} onClick={onClick} fill  alt={name} className={cn("rounded-md cursor-pointer opacity-75 hover:opacity-100" , isActive && "opacity-100")}/>
       </Hint>
     </div>
