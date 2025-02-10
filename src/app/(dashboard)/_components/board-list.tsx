@@ -1,55 +1,34 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React from "react";
+import EmptySearch from "./empty-search";
+import EmptyFavorites from "./empty-favorites";
+import EmptyBoards from "./empty-boards";
 
-
-interface BoardListProps{
-    orderId : string,
-    query : {
-        search? : string;
-        favorites? : string;
-    }
+interface BoardListProps {
+  orderId: string;
+  query: {
+    search?: string;
+    favorites?: string;
+  };
 }
 
-const BoardList = ({orderId,query} : BoardListProps) => {
-  
+const BoardList = ({ orderId, query }: BoardListProps) => {
+  const data = [];
 
-    const data = [] ;
-    
-    
+  if (!data?.length && query.search) {
+    return <EmptySearch />;
+  }
 
-    if(!data?.length && query.search){
-        return (
-            <div>
-                Try Searching for something else
-            </div>
-        )
-    }
-  
-  
-        if(!data?.length && query.favorites){
-        return (
-            <div>
-                No Favorites Found
-            </div>
-        )
-    }
+  if (!data?.length && query.favorites) {
+    return <EmptyFavorites />;
+  }
 
-        if(!data?.length){
-        return (
-            <div>
-                No Boards Found
-            </div>
-        )
-    }
-  
-  
-  
-    return (
-    <div>
-      
-    </div>
-  )
-}
+  if (!data?.length) {
+    return <EmptyBoards />;
+  }
 
-export default BoardList
+  return <div id={orderId}></div>;
+};
+
+export default BoardList;
