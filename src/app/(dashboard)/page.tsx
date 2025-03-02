@@ -24,14 +24,13 @@ const DashBoardPage = (props: DashboardPageProps) => {
 
   return (
     <div className={'flex-1 h-[calc(100%-80px)]'}>
-      Dashboard Page
       {
         !organization ? (
 
           <EmptyOrg />
         ) : (
           <>
-            <BoardList orderId={organization.id} query={searchParams} />
+            <BoardList orgId={organization.id} query={searchParams} />
           </>
         )
       }
