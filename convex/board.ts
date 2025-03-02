@@ -13,6 +13,9 @@ const images = [
     '/placeholders/8.png',
     '/placeholders/9.png',
     '/placeholders/10.png',
+    '/placeholders/11.svg',
+    '/placeholders/12.svg',
+    '/placeholders/13.svg',
 ]
 
 
