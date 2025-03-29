@@ -5,16 +5,19 @@ import Info from './info';
 import Participants from './participants';
 import ToolBar from './toolbar';
 
+import { useSelf } from '@liveblocks/react/suspense';
+
+
 interface CanvasProps{
   boardId : string,
 }
 
 const Canvas = ({boardId} : CanvasProps) => {
-  console.log(boardId);
-  
-  return (
+    const {name,picture} = useSelf((me) => me.info)
+
+     return (
     <main className='h-full w-full relative bg-neutral-100 touch-none'>
-      <Info />
+      <Info boardId={boardId} />
       <Participants />
       <ToolBar />
     </main>
