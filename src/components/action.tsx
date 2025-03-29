@@ -7,8 +7,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuItem,
-
+  DropdownMenuItem
 } from "@/components/ui/dropdown-menu";
 import { ConfirmModal } from "./confirm-modal";
 import { Link2, Pencil, Trash2 } from "lucide-react";
@@ -35,6 +34,10 @@ export const Actions = ({
 }: ActionsProps) => {
   const { onOpen } = useRenameModal();
   const { mutate, pending } = useApiMutation(api.board.remove);
+
+  const onOpenRenameModal = () => {
+    onOpen(id, title);
+  };
 
   const onCopyLink = () => {
     navigator.clipboard
@@ -65,7 +68,8 @@ export const Actions = ({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => 
+          e.stopPropagation()}
         side={side}
         sideOffset={sideOffset}
         className={"w-60"}
@@ -74,15 +78,19 @@ export const Actions = ({
           <Link2 className="h-4 w-4 mr-2" />
           Copy Board Link
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onOpen(id,title)} className="p-3 cursor-pointer">
+        <DropdownMenuItem
+          // onClick={onOpenRenameModal}
+          onClick={onOpenRenameModal}
+          className="p-3 cursor-pointer"
+        >
           <Pencil className="h-4 w-4 mr-2" />
           Rename
         </DropdownMenuItem>
         <ConfirmModal
           header="Delete Board ?"
           description="This will delete the board and all of its contents"
-          disabled={pending}
           onConfirm={onDelete}
+          disabled={pending}
         >
           <Button
             variant={"ghost"}
