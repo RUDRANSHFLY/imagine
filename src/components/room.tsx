@@ -12,7 +12,7 @@ interface RoomProps{
 
 const Room = ({children , roomId , fallback}:RoomProps) => {
   return (
-    <LiveblocksProvider publicApiKey={"pk_dev_CERZOGonqW4YWokF1NVJZICdv0S53jo4XWwYRpfMaslc6SvgqHNy1CbFjF9iTIWq"}>
+    <LiveblocksProvider authEndpoint={'/api/liveblocks-auth'}>
       <RoomProvider id={roomId} initialPresence={{}}>
         <ClientSideSuspense fallback={fallback}>
             {() => children}
