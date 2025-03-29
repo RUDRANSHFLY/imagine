@@ -23,6 +23,6 @@ export const useRenameModal = create<IRenameModal>((set) => ({
             title
         }
     }),
-    onClose : () => set({isOpen : false ,initialValues : defaultValues}),
+    onClose : () => set({isOpen : false ,initialValues : {...defaultValues}}),
     initialValues : defaultValues,
 }))
