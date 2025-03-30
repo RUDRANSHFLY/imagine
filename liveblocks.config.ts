@@ -1,5 +1,3 @@
-// Define Liveblocks types for your application
-// https://liveblocks.io/docs/api-reference/liveblocks-react#Typing-your-data
 declare global {
   interface Liveblocks {
     UserMeta: {
@@ -9,9 +7,15 @@ declare global {
       info: {
         name: string;
         picture: string;
-       
-      }
-    }
+      };
+    };
+
+    Presence: {
+      cursor: {
+        x: number;
+        y: number;
+      } | null;
+    };
   }
 }
 
