@@ -12,6 +12,10 @@ import { api } from "../../../../../convex/_generated/api";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import Link from "next/link";
 
+import { useRenameModal } from "@/store/use-rename-modal";
+import { Actions } from "@/components/action";
+import { Menu } from "lucide-react";
+
 interface InfoProps {
   boardId: string;
 }
@@ -20,17 +24,13 @@ const font = Poppins({
   weight: ["600"]
 });
 
-
 const TabSeparator = () => {
-  return (
-    <div className="text-neutral-300 px-1.5">
-      |
-    </div>
-  )
-}
+  return <div className="text-neutral-300 px-1.5">|</div>;
+};
 
 const Info = ({ boardId }: InfoProps) => {
   const data = useQuery(api.board.get, { id: boardId as Id<"boards"> });
+  const { onOpen } = useRenameModal();
 
   if (!data) {
     return <InfoSkeleton />;
@@ -54,9 +54,25 @@ const Info = ({ boardId }: InfoProps) => {
         </Button>
       </Hint>
       <TabSeparator />
-      <Button variant={"board"} className="text-base font-normal px-2">
+      <Hint label="Edit title" side={"bottom"} sideOffset={10}>
+        <Button
+          variant={"board"}
+          className="text-base font-normal px-2"
+          onClick={() => onOpen(data._id, data.title)}
+        >
           {data.title}
-      </Button>
+        </Button>
+      </Hint>
+      <TabSeparator />
+      <Actions id={data._id} title={data.title} side={"bottom"} sideOffset={10} >
+          <div>
+            <Hint label="Main menu" side="bottom" sideOffset={10}>
+                <Button size={"icon"} variant={"board"}>
+                  <Menu />
+                </Button>
+            </Hint>
+          </div>
+      </Actions>
     </div>
   );
 };
