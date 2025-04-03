@@ -2,7 +2,7 @@ import React from "react";
 import ToolButton from "./tool-button";
 import {
   Circle,
-  Diamond,
+
   MousePointer2,
   Pencil,
   RectangleHorizontalIcon,
@@ -98,16 +98,6 @@ const ToolBar = ({
             canvasState.layerType === LayerType.Reactangle
           }
         />
-        <ToolButton label="Daimond" icon={Diamond}  onClick={() =>
-            setCanvasState({
-              mode: CanvasMode.Inserting,
-              layerType: LayerType.Diamond
-            })
-          }
-          isActive={
-            canvasState.mode === CanvasMode.Inserting &&
-            canvasState.layerType === LayerType.Diamond
-          } />
         <ToolButton label="Circle" icon={Circle}  onClick={() =>
             setCanvasState({
               mode: CanvasMode.Inserting,
