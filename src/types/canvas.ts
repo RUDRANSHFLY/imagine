@@ -12,7 +12,6 @@ export type Camera = {
 export enum LayerType {
     Reactangle,
     Square,
-    Diamond,
     Circle,
     Path,
     Text,
@@ -36,6 +35,7 @@ export type CircleLayer = {
     height: number;
     width: number;
     fill: Color;
+
     value?: string;
 }
 
@@ -46,6 +46,7 @@ export type SquareLayer = {
     height: number;
     width: number;
     fill: Color;
+
     value?: string;
 }
 
@@ -56,7 +57,7 @@ export type PathLayer = {
     height: number;
     width: number;
     fill: Color;
-    points: number[][];
+    points?: number[][];
     value?: string;
 }
 
@@ -68,6 +69,7 @@ export type TextLayer = {
     height: number;
     width: number;
     fill: Color;
+
     value?: string;
 }
 
@@ -124,13 +126,13 @@ export type CanvasState =
 
     | {
         mode: CanvasMode.Inserting;
-        layerType: LayerType.Reactangle | LayerType.Square | LayerType.Diamond | LayerType.Circle | LayerType.Text | LayerType.Note;
+        layerType: LayerType.Reactangle | LayerType.Square | LayerType.Circle | LayerType.Text | LayerType.Note;
     }
 
     | {
         mode: CanvasMode.Resizing;
-        initialBounds : XYWH;
-        corner : Side;
+        initialBounds: XYWH;
+        corner: Side;
     }
 
     | {
@@ -147,3 +149,6 @@ export enum CanvasMode {
     Resizing,
     Pencil,
 }
+
+
+export type Layer = ReactangleLayer | CircleLayer | SquareLayer | PathLayer | TextLayer | NoteLayer | NoteLayer;
