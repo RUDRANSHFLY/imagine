@@ -12,21 +12,21 @@ const Cursors = () => {
 
   return (
     <>
-      {ids.map((connectionId) => {
-        return <Cursor connectionId={connectionId} key={connectionId} />;
-      })}
+      {ids.map((connectionId) =>  (
+        <Cursor connectionId={connectionId} key={connectionId} />
+      ))}
     </>
   );
 };
 
 const CursorPresence = memo(() => {
   return (
-    <div>
+    <>
       <Cursors />
-    </div>
+    </>
   );
 });
 
-CursorPresence.displayName = "";
+CursorPresence.displayName = "CursorPresence";
 
 export default CursorPresence;
