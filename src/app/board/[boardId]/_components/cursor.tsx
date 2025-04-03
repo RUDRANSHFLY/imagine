@@ -23,7 +23,7 @@ const Cursor = memo(({ connectionId }: CursorProps) => {
 
   const { x, y } = cursor;
 
-  console.log({ x, y });
+  console.log({ x, y , name});
   
 
   return (
@@ -32,14 +32,14 @@ const Cursor = memo(({ connectionId }: CursorProps) => {
         transform: `translateX(${x}px) translateY(${y}px)`,
       }}
       height={50}
-      width={name.length * 10 + 24}
+      width={50}
       className={"relative drop-shadow-md"}
     >
       <MousePointer2
         className="h-5 w-5"
         style={{
-          fill: "black",
-          color: "red"
+          fill: connectionIdToColor(connectionId),
+          color: connectionIdToColor(connectionId),
         }}
       />
       <div
