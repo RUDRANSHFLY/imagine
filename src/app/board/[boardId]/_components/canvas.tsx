@@ -13,7 +13,9 @@ import {
   CanvasState,
   Color,
   LayerType,
-  Point
+  Point,
+  Side,
+  XYWH
 } from "@/types/canvas";
 import { useHistory, useCanRedo, useCanUndo } from "@liveblocks/react";
 import CursorPresence from "./cursors-presence";
@@ -86,6 +88,18 @@ const Canvas = ({ boardId }: CanvasProps) => {
     },
     [lastUsedColor]
   );
+
+  const onResizeHandlePointerDown = useCallback((
+    corner : Side,
+    initialBounds : XYWH,
+  ) => {
+    history.pause();
+    setCanvasState({
+      mode : CanvasMode.Resizing,
+      initialBounds : initialBounds,
+      corner : corner,
+    })
+  },[history,setCanvasState])
 
   const onWheel = useCallback((e: React.WheelEvent) => {
     // console.log({
@@ -200,7 +214,7 @@ const Canvas = ({ boardId }: CanvasProps) => {
               selectionColor={layerIdsToColorSelection[layerId]}
             />
           ))}
-          <SelectionBox onResizeHandlePointerDown={() => {}} />
+          <SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown} />
           <CursorPresence />
         </g>
       </svg>
