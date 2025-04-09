@@ -198,6 +198,8 @@ const Canvas = ({ boardId }: CanvasProps) => {
 
       if(canvasState.mode === CanvasMode.Pressing){
         startMultiSelect(current,canvasState.origin)
+      }else if(canvasState.mode === CanvasMode.SelectionNet){
+
       }else if (canvasState.mode === CanvasMode.Translating) {
         translateSelectedLayers(current);
       } else if (canvasState.mode === CanvasMode.Resizing) {
