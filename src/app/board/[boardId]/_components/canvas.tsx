@@ -29,6 +29,7 @@ import { useMutation } from "@liveblocks/react/suspense";
 import { LiveObject } from "@liveblocks/client";
 import LayerPreview from "./layer-preview";
 import SelectionBox from "./selection-box";
+import SelectionTools from "./selection-tools";
 
 const MAX_LAYERS = 100;
 
@@ -175,13 +176,29 @@ const Canvas = ({ boardId }: CanvasProps) => {
     }));
   }, []);
 
+
+    const startMultiSelect = useCallback((
+        current : Point,
+        origin : Point,
+      ) => {
+        if(Math.abs(current.x - origin.x) + Math.abs(current.y - origin.y) > 5){
+          setCanvasState({
+            mode : CanvasMode.SelectionNet,
+            origin,
+            current,
+          })
+        }
+      },[])
+
   const onPointerMove = useMutation(
     ({ setMyPresence }, e: React.PointerEvent) => {
       e.preventDefault();
 
       const current = pointerEventToCanvasPoint(e, camera);
 
-      if (canvasState.mode === CanvasMode.Translating) {
+      if(canvasState.mode === CanvasMode.Pressing){
+        startMultiSelect(current,canvasState.origin)
+      }else if (canvasState.mode === CanvasMode.Translating) {
         translateSelectedLayers(current);
       } else if (canvasState.mode === CanvasMode.Resizing) {
         resizeSelectedLayer(current);
@@ -277,6 +294,7 @@ const Canvas = ({ boardId }: CanvasProps) => {
         undo={history.undo}
         redo={history.redo}
       />
+      <SelectionTools camera={camera} setLastUsedColor={setLastUsedColor} />
       <svg
         onWheel={onWheel}
         onPointerMove={onPointerMove}
