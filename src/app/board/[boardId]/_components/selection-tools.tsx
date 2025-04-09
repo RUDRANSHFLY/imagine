@@ -5,9 +5,9 @@ import { useDeleteLayers } from '@/hooks/use-delete-layers'
 
 
 
-import { Camera, Color } from '@/types/canvas'
+import { Camera, Color, Point } from '@/types/canvas'
 import { useMutation, useSelf } from '@liveblocks/react/suspense'
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 import ColorPicker from './color-picker'
 
 import Hint from '@/components/hint'
@@ -27,6 +27,57 @@ const SelectionTools = memo(({camera,setLastUsedColor} : SelectionToolsProps) =>
     
 
     const selectionBounds = useSelectionBounds();
+
+  
+
+    const moveToFront = useMutation((
+      {storage}
+    ) => {
+        const liveLayersIds = storage.get("layerIds");
+        const indices : number[] = [];
+
+        const arr = liveLayersIds.toArray();
+
+
+        for(let i = 0 ; i < arr.length ; i++){
+          if(selection.includes(arr[i])){
+            indices.push(i)
+          }
+        }
+
+        for(let i = indices.length - 1; i >= 0 ; i--){
+          liveLayersIds.move(indices[i],arr.length - 1  - (indices.length - 1 - i))
+        }
+
+
+
+    },[selection])
+
+
+
+
+    const moveToBack = useMutation((
+      {storage}
+    ) => {
+        const liveLayersIds = storage.get("layerIds");
+        const indices : number[] = [];
+
+        const arr = liveLayersIds.toArray();
+
+
+        for(let i = 0 ; i < arr.length ; i++){
+          if(selection.includes(arr[i])){
+            indices.push(i)
+          }
+        }
+
+        for(let i = 0 ; i < indices.length ; i++){
+          liveLayersIds.move(indices[i],i)
+        }
+
+
+
+    },[selection])
 
     const setFill = useMutation(({storage} , fill : Color) => {
       const liveLayers = storage.get('layers');
@@ -52,12 +103,12 @@ const SelectionTools = memo(({camera,setLastUsedColor} : SelectionToolsProps) =>
       <ColorPicker onChange={setFill} />
       <div className='flex flex-col gap-y-0.5'>
         <Hint label='Bring to front'>
-          <Button variant={"board"} size={"icon"}>
+          <Button variant={"board"} size={"icon"} onClick={moveToFront}>
             <BringToFront />
           </Button>
         </Hint>
         <Hint label='Bring to back'>
-          <Button variant={"board"} size={"icon"}>
+          <Button variant={"board"} size={"icon"} onClick={moveToBack}>
             <SendToBack />
           </Button>
         </Hint>
