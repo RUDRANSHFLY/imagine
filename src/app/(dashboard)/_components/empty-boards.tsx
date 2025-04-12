@@ -9,18 +9,23 @@ import { useOrganization } from "@clerk/clerk-react";
 import { useApiMutation } from "@/hooks/use-api-mutation";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAction } from "convex/react"; 
 
 const EmptyBoards = () => {
   const router = useRouter();
   const { organization } = useOrganization();
   const { mutate, pending } = useApiMutation(api.board.create);
+  const getRandomPokemon= useAction(api.action.getRandomPokemon)
 
-  const onClick = () => {
+  const onClick = async () => {
     if (!organization) return;
+
+    const imageUrl = await getRandomPokemon();
 
     mutate({
       orgId: organization.id,
-      title: "Untitled board"
+      title: "Untitled board",
+      imageUrl,
     }).then((id) => {
       if (id) {
         toast.success("Board created");
