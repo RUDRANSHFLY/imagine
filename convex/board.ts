@@ -1,6 +1,8 @@
 import { v } from "convex/values"
 import { mutation, query } from "./_generated/server"
-import { getRandomPokemon } from "@/lib/utils";
+
+
+
 
 
 const images = [
@@ -20,10 +22,13 @@ const images = [
 ]
 
 
+
+
 export const create = mutation({
     args: {
         orgId: v.string(),
         title: v.string(),
+        imageUrl : v.string(),
     },
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
@@ -32,7 +37,9 @@ export const create = mutation({
             throw new Error("Unauthorized");
         }
 
-        const randomImage = await getRandomPokemon()
+        const randomImage = args.imageUrl
+
+        
 
         const board = await ctx.db.insert("boards", {
             title: args.title,
