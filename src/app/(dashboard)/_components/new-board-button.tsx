@@ -8,6 +8,7 @@ import { Plus } from 'lucide-react';
 import { useApiMutation } from '@/hooks/use-api-mutation';
 import { api } from '../../../../convex/_generated/api';
 import { useRouter } from 'next/navigation';
+import { useAction } from 'convex/react';
 
 
 
@@ -19,12 +20,16 @@ interface NewBoardButtonProps{
 const NewBoardButton = ({orgId,disabled} : NewBoardButtonProps) => {
 
     const {mutate,pending} = useApiMutation(api.board.create)
+    const getRandomPokemon= useAction(api.action.getRandomPokemon)
     const router = useRouter();
 
-    const onClick = () => {
-        mutate({
+    
+    const onClick = async () => {
+      const imageUrl = await getRandomPokemon();
+      mutate({
             orgId,
-            title : "New Board"
+            title : "New Board",
+            imageUrl,
         })
         .then((id) => {
           toast.success("Board created")
