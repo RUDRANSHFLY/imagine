@@ -1,5 +1,5 @@
 import { LiveMap , LiveObject , LiveList } from "@liveblocks/client";
-import { Layer  } from "@/types/canvas";
+import { Color, Layer  } from "@/types/canvas";
 declare global {
   interface Liveblocks {
     UserMeta: {
@@ -18,6 +18,8 @@ declare global {
         y: number;
       } | null;
       selection : string[];
+      pencilDraft : [x : number , y : number , pressure : number][] | null;
+      penColor : Color | null;
     };
 
     Storage : {
