@@ -25,12 +25,14 @@ const LayerPreview = memo(
       return null;
     }
 
+
+
     switch (layer.type) {
       case LayerType.Path:
         return (
           <Path
             key={id}
-            points={layer.points}
+            points={layer.points ?? []}
             onPointerDown={(e) => onLayerPointDown(e,id)}
             x={layer.x}
             y={layer.y}
