@@ -1,5 +1,6 @@
 import { v } from "convex/values"
 import { mutation, query } from "./_generated/server"
+import { getRandomPokemon } from "@/lib/utils";
 
 
 const images = [
@@ -31,7 +32,7 @@ export const create = mutation({
             throw new Error("Unauthorized");
         }
 
-        const randomImage = images[Math.floor(Math.random() * images.length)]
+        const randomImage = await getRandomPokemon()
 
         const board = await ctx.db.insert("boards", {
             title: args.title,
