@@ -5,17 +5,15 @@ import { getSvgPathFromStroke } from "@/lib/utils";
 interface PathProps {
   x: number;
   y: number;
-  points: number[][] | undefined;
+  points: number[][];
   fill: string;
   onPointerDown?: (e: React.PointerEvent) => void;
   stroke?: string;
 }
 
-const Path = ({ id, fill, points, x, y, onPointerDown, stroke }: PathProps) => {
+const Path = ({ fill, points, x, y, onPointerDown, stroke }: PathProps) => {
 
-    if(points === undefined){
-        return new Error("No Points Fonund");
-    }
+
 
   return (
     <path
