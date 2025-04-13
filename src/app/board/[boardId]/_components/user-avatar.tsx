@@ -21,6 +21,6 @@ const UserAvatar = ({borderColor,fallback,name,src} : UserAvatarProps) => {
         </Avatar>
     </Hint>
   )
-}p
+}
 
 export default UserAvatar

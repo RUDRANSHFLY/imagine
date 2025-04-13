@@ -5,9 +5,9 @@ import { useDeleteLayers } from '@/hooks/use-delete-layers'
 
 
 
-import { Camera, Color, Point } from '@/types/canvas'
+import { Camera, Color} from '@/types/canvas'
 import { useMutation, useSelf } from '@liveblocks/react/suspense'
-import React, { memo, useCallback } from 'react'
+import React, { memo } from 'react'
 import ColorPicker from './color-picker'
 
 import Hint from '@/components/hint'
@@ -36,7 +36,7 @@ const SelectionTools = memo(({camera,setLastUsedColor} : SelectionToolsProps) =>
         const liveLayersIds = storage.get("layerIds");
         const indices : number[] = [];
 
-        const arr = liveLayersIds.toArray();
+        const arr = liveLayersIds.toImmutable();
 
 
         for(let i = 0 ; i < arr.length ; i++){
@@ -62,7 +62,7 @@ const SelectionTools = memo(({camera,setLastUsedColor} : SelectionToolsProps) =>
         const liveLayersIds = storage.get("layerIds");
         const indices : number[] = [];
 
-        const arr = liveLayersIds.toArray();
+        const arr = liveLayersIds.toImmutable();
 
 
         for(let i = 0 ; i < arr.length ; i++){

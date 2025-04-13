@@ -1,7 +1,7 @@
 "use client";
 
 import { useRenameModal } from "@/store/use-rename-modal";
-import { useState, useEffect, FormEventHandler, ReactNode } from "react";
+import { useState, useEffect, FormEventHandler } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -15,14 +15,10 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+
 } from "../ui/dialog";
 
-interface RenameModalProps {
-  children: ReactNode;
-}
-
-export const RenameModal = ({ children }: RenameModalProps) => {
+export const RenameModal = () => {
   const { mutate, pending } = useApiMutation(api.board.update);
 
   const { isOpen , initialValues, onClose } = useRenameModal();
@@ -50,7 +46,6 @@ export const RenameModal = ({ children }: RenameModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Board Title</DialogTitle>
